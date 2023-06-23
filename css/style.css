@@ -1,0 +1,48 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    height: 800px;
+    width: 800px;
+}
+
+.board {
+    height: 100%;
+    display: grid;
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    font-size: 3rem;
+    border: pink 1px solid;
+}
+
+.cell {
+    font-size: 9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+}
+
+.cell:hover {
+    background: lightblue;
+    cursor: pointer;
+}
+
+.fade {
+    opacity: 1;
+    transition: opacity 300ms cubic-bezier(0.55, 0.085, 0.68, 0.53);
+  }
