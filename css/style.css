@@ -46,3 +46,21 @@ header {
     opacity: 1;
     transition: opacity 300ms cubic-bezier(0.55, 0.085, 0.68, 0.53);
   }
+
+.winner {
+    font-size: 10rem;
+    color: gold;
+    font-weight: 900;
+    display: none;
+    position: absolute;
+    z-index: 1;
+}
+
+.overlay {
+    display: none;
+    position: absolute;
+    opacity: 90%;
+    height: 100%;
+    width: 100%;
+    background: darkgrey;
+}
