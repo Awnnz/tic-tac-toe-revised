@@ -57,7 +57,6 @@ const gameController = (() => {
 
         const threeInaColumn = () => {
             const arr = [];
-            const winner = false;
             for (let i = 0; i < GameBoard.showBoard().length; i++) {
                 const row = [];
                 for (let j = 0; j < GameBoard.showBoard().length; j++) {
@@ -67,23 +66,41 @@ const gameController = (() => {
                 if (GameBoard.showBoard()[0][i] === undefined) return;
                 if (arr[i].every(element => element === GameBoard.showBoard()[0][i])) return true;
             }
+            return false;
         }
 
         threeInaDiagonal = () => {
             let cell = GameBoard.showBoard();
-            if ([cell[0][0], cell[1][1], cell[2][2]].every(element => element === 'X') || [cell[0][2], cell[1][1], cell[2][0]].every(element => element === 'X')) return true;
+            if ((cell[0][0] === undefined && cell[1][1] === undefined && cell[2][2] === undefined) || (cell[0][2] === undefined && cell[1][1] === undefined && cell[2][0] === undefined)) return false;
+            if ([cell[0][0], cell[1][1], cell[2][2]].every(element => element === cell[0][0]) || [cell[0][2], cell[1][1], cell[2][0]].every(element => element === cell[0][2])) return true;
+            console.log(cell[0][0], cell[1][1], cell[2][2])
+            return false;
             
         }
         
-
+        threeInaDiagonal()
         return (threeInaRow() || threeInaColumn() || threeInaDiagonal());
     }
+
+    const resetBoard = () => {
+        for (let i = 0; i < GameBoard.getBoard().length; i++) {
+            for (let j = 0; j < GameBoard.getBoard()[0].length; j++) {
+                GameBoard.getBoard()[i][j].setValue(undefined)
+            }
+        }
+
+        document.querySelector('.overlay').style.display = 'none';
+        document.querySelector('.winner').style.display = 'none';
+
+    };
 
     const playRound = (row, column) => {
         if (GameBoard.getBoard()[row][column].getValue() !== undefined) return;
         GameBoard.addMark(row, column, currentPlayer.getMark());
 
         if (checkWin()) {
+            
+            document.querySelector('.winner-text').textContent = `${gameController.getCurrentPlayer().getName()}(${gameController.getCurrentPlayer().getMark()}) Wins!`;
             document.querySelector('.overlay').style.display = 'block';
             document.querySelector('.winner').style.display = 'block';
             return;
@@ -94,10 +111,15 @@ const gameController = (() => {
 
     const getCurrentPlayer = () => currentPlayer;
     
-    return {playRound, getCurrentPlayer}
+    return {playRound, getCurrentPlayer, resetBoard}
 })();
 
 const displayController = (() => {
+
+    document.querySelector(`.play-again`).onclick = () => {
+        gameController.resetBoard();
+        updateBoard();
+    }
 
     const updateBoard = () => {
         document.querySelector('.board').textContent = '';
@@ -122,6 +144,7 @@ const displayController = (() => {
     
     updateBoard();
     
+    return {updateBoard};
 })()
 
 

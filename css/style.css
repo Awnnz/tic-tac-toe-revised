@@ -14,6 +14,7 @@ body {
 .container {
     height: 800px;
     width: 800px;
+    flex-shrink: 0;
 }
 
 .board {
@@ -48,12 +49,23 @@ header {
   }
 
 .winner {
-    font-size: 10rem;
+    font-size: clamp(3rem, 10vw, 10rem);
     color: gold;
     font-weight: 900;
     display: none;
     position: absolute;
     z-index: 1;
+    text-align: center;
+}
+
+.play-again {
+    font-size: 3rem;
+    border-radius: 20px;
+    padding: 0 10px;
+}
+
+.play-again:hover {
+    background-color: greenyellow;
 }
 
 .overlay {
