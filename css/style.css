@@ -58,6 +58,10 @@ header {
     text-align: center;
 }
 
+.winner-text + div{
+    font-size: 9vw;
+}
+
 .play-again {
     font-size: 3rem;
     border-radius: 20px;

@@ -82,6 +82,10 @@ const gameController = (() => {
         return (threeInaRow() || threeInaColumn() || threeInaDiagonal());
     }
 
+    const checkTie = () => {
+        return ![...GameBoard.showBoard()[0], ...GameBoard.showBoard()[01], ...GameBoard.showBoard()[2]].some(x => x === undefined);
+    }
+
     const resetBoard = () => {
         for (let i = 0; i < GameBoard.getBoard().length; i++) {
             for (let j = 0; j < GameBoard.getBoard()[0].length; j++) {
@@ -89,6 +93,7 @@ const gameController = (() => {
             }
         }
 
+        currentPlayer = player1;
         document.querySelector('.overlay').style.display = 'none';
         document.querySelector('.winner').style.display = 'none';
 
@@ -99,8 +104,14 @@ const gameController = (() => {
         GameBoard.addMark(row, column, currentPlayer.getMark());
 
         if (checkWin()) {
-            
             document.querySelector('.winner-text').textContent = `${gameController.getCurrentPlayer().getName()}(${gameController.getCurrentPlayer().getMark()}) Wins!`;
+            document.querySelector('.overlay').style.display = 'block';
+            document.querySelector('.winner').style.display = 'block';
+            return;
+        };
+
+        if (checkTie()) {
+            document.querySelector('.winner-text').textContent = `Draw! No one wins.`;
             document.querySelector('.overlay').style.display = 'block';
             document.querySelector('.winner').style.display = 'block';
             return;
